@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Врата · панель вебхуков</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="dot" id="statusDot"></span>
+      <span>Врата · панель вебхуков</span>
+    </div>
+    <nav class="tabs" id="tabs">
+      <button class="tab active" data-tab="send">Сообщение</button>
+      <button class="tab" data-tab="chars">Персонажи</button>
+      <button class="tab" data-tab="hook">Вебхук</button>
+    </nav>
+    <div class="hookBadge" id="hookBadge">вебхук не выбран</div>
+  </header>
+
+  <main>
+    <!-- ------------------------------------------------------ сообщение -->
+    <section class="pane active" id="pane-send">
+      <aside class="panel chars-panel">
+        <div class="panel-head">
+          <h2>Говорит</h2>
+          <button class="ghost" id="quickAddChar" title="Добавить персонажа">+</button>
+        </div>
+        <div class="char-list" id="charList"></div>
+      </aside>
+
+      <div class="panel composer">
+        <div class="composer-head">
+          <span class="who" id="whoLabel">Система</span>
+          <label class="switch" title="Подменять имя автора в сообщении">
+            <input type="checkbox" id="useName" checked />
+            <span>имя в сообщении</span>
+          </label>
+        </div>
+
+        <textarea id="messageBox" placeholder="Что говорит этот персонаж? Enter — отправить, Shift+Enter — новая строка."></textarea>
+
+        <aside class="preview-wrap">
+          <div class="preview-label">Так это увидят в Discord</div>
+          <div class="preview" id="preview"></div>
+        </aside>
+
+        <div class="composer-foot">
+          <span class="counter" id="counter">0 / 2000</span>
+          <button class="primary" id="sendBtn">Отправить</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------ персонажи -->
+    <section class="pane" id="pane-chars">
+      <div class="panel wide">
+        <div class="panel-head">
+          <h2>Персонажи</h2>
+          <span class="muted">имя, от которого можно говорить</span>
+        </div>
+        <div class="rows" id="charsRows"></div>
+
+        <form class="inline-form" id="charForm">
+          <input type="text" id="charName" placeholder="Имя персонажа" maxlength="80" />
+          <input type="url" id="charAvatar" placeholder="Ссылка на аватар (необязательно)" />
+          <button class="primary" type="submit">Добавить</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ---------------------------------------------------------- вебхук -->
+    <section class="pane" id="pane-hook">
+      <div class="panel wide">
+        <div class="panel-head">
+          <h2>Вебхуки</h2>
+          <span class="muted">активный подсвечен</span>
+        </div>
+        <div class="rows" id="hookRows"></div>
+
+        <form class="stack-form" id="createForm">
+          <h3>Создать новый</h3>
+          <label>Токен бота
+            <input type="password" id="token" placeholder="из Developer Portal → Bot → Reset Token" />
+          </label>
+          <label>ID канала
+            <input type="text" id="channelId" placeholder="правый клик по каналу → Копировать ID" />
+          </label>
+          <label>Имя вебхука
+            <input type="text" id="newHookName" placeholder="Система" maxlength="80" />
+          </label>
+          <div class="form-row">
+            <button class="primary" type="submit">Создать через бота</button>
+            <label class="check">
+              <input type="checkbox" id="rememberToken" checked />
+              <span>запомнить токен</span>
+            </label>
+          </div>
+        </form>
+
+        <form class="stack-form" id="addForm">
+          <h3>Добавить существующий</h3>
+          <label>Ссылка вебхука
+            <input type="url" id="hookUrl" placeholder="https://discord.com/api/webhooks/…" />
+          </label>
+          <button class="primary" type="submit">Добавить по ссылке</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
